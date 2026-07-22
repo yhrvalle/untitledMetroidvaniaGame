@@ -14,7 +14,7 @@ config/name="untitledMetroidvaniaGame"
 config/version="0.1.0"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=144
-config/icon="res://icon.svg"
+config/icon="res://content/icons/icon.svg"
 
 [debug]
 
@@ -29,6 +29,15 @@ window/size/window_width_override=2000
 window/size/window_height_override=1200
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "purple",
+"res://content/": "blue",
+"res://systems/": "pink",
+"res://ui/": "green"
+}
 
 [physics]
 
