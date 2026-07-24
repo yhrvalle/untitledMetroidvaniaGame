@@ -12,6 +12,7 @@ config_version=5
 
 config/name="untitledMetroidvaniaGame"
 config/version="0.1.0"
+run/main_scene="uid://encntmxkbfg5"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=144
 config/icon="res://content/icons/icon.svg"

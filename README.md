@@ -5,6 +5,11 @@ this is my first project in godot and i pretend to use 100% gdscript, i dont rea
 python and its syntax but ill bear with it. 
 <br> I already have some experience in game develpment and coding with c# and java.
 
+## Game Idea
+just a simple metroidvania game
+- cave story is the principal inspiration, probably ill make different weapons
+
+
 ## Objective
 - learn about the engine itself
 - follow this [game architecuture](https://www.gdquest.com/library/modular_game_architecture/)
@@ -29,6 +34,7 @@ python and its syntax but ill bear with it.
 
 - learn how to juiceee (vfx, shaders, lightnign)
 - ci/cd in game dev
+- testing games
 
 ## Convention
 - basically everything is snake_case besides node and classes (enum is Pascal and CONSTANT_CASE)
