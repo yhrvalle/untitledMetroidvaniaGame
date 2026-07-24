@@ -1,0 +1,38 @@
+name: gscript lint
+
+on:
+  pull_request:
+    branches:  "master"
+
+jobs:
+  lint:
+    name: Run gdlint & gdformat
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Get .gd pr files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **/*.gd
+
+      - name: Run gdlint on pr
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          gdlint ${{ steps.changed-files.outputs.all_changed_files }}
+
+      - name: run gdformat on pr
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          gdformat --check ${{ steps.changed-files.outputs.all_changed_files }}
