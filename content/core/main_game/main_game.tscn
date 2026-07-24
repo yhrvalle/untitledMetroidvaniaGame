@@ -32,6 +32,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="TransitionLayer" type="CanvasLayer" parent="HudRoot" unique_id=248602622]
 process_mode = 3
@@ -42,6 +43,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="DebugLayer" type="CanvasLayer" parent="HudRoot" unique_id=496529219]
 process_mode = 3
@@ -52,3 +54,4 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
