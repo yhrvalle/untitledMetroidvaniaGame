@@ -4,7 +4,6 @@
 this is my first project in godot and i pretend to use 100% gdscript, i dont really like
 python and its syntax but ill bear with it. 
 <br> I already have some experience in game develpment and coding with c# and java.
-<br> I really wanted to came back and code game again but as a hobby now (~~really wanted to join the industry as a career but im a brazilian and i found kinda hard to find something and startet learning backend development as main career~~ )
 
 ## Objective
 - learn about the engine itself
@@ -31,4 +30,11 @@ python and its syntax but ill bear with it.
 - learn how to juiceee (vfx, shaders, lightnign)
 - ci/cd in game dev
 
-##
+## Convention
+- basically everything is snake_case besides node and classes (enum is Pascal and CONSTANT_CASE)
+
+| file        | class      | node        |
+|-------------|------------|-------------|
+| snake_case  | PascalCase | PascalCase  |
+
+
