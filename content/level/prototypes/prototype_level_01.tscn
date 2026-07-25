@@ -1,29 +1,25 @@
 [gd_scene format=3 uid="uid://ci15bm4spgnd2"]
 
 [ext_resource type="Script" uid="uid://bgj3eiswj8sfd" path="res://prototype_level_01.gd" id="1_k1tx4"]
-[ext_resource type="Texture2D" uid="uid://cs6xfbshm5k4w" path="res://content/icons/icon.svg" id="2_0v1hf"]
+[ext_resource type="PackedScene" uid="uid://30hqq261tdte" path="res://content/core/camera/player_camera.tscn" id="3_1vfhs"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j2ccv"]
-normal = Vector2(0, 1)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8bdhr"]
 
 [node name="prototype_level01" type="Node2D" unique_id=1862126187]
 script = ExtResource("1_k1tx4")
 
-[node name="Platform" type="StaticBody2D" parent="." unique_id=840433363]
-position = Vector2(283, 296)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=2016063274]
-shape = SubResource("WorldBoundaryShape2D_j2ccv")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platform" unique_id=829336170]
-position = Vector2(6, 28.000004)
-scale = Vector2(-6.2175727, 0.41909042)
-texture = ExtResource("2_0v1hf")
-
 [node name="Entities" type="Node2D" parent="." unique_id=419254613]
 
 [node name="PlayerSpawn" type="Marker2D" parent="Entities" unique_id=2119216289]
-position = Vector2(206, 94)
+position = Vector2(455, 83)
 
-[node name="PlayerCamera" type="Camera2D" parent="Entities" unique_id=523547365]
-position = Vector2(321, 182)
+[node name="PlayerCamera" parent="Entities" unique_id=160405427 instance=ExtResource("3_1vfhs")]
+position = Vector2(322, 180)
+
+[node name="Environment" type="Node2D" parent="." unique_id=229961765]
+
+[node name="Platform" type="StaticBody2D" parent="Environment" unique_id=2098367377]
+position = Vector2(312, 343)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Platform" unique_id=574372914]
+shape = SubResource("WorldBoundaryShape2D_8bdhr")
