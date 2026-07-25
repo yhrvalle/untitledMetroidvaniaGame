@@ -2,6 +2,7 @@ class_name MainGame
 extends Node
 
 const PLAYER_UID : String = "uid://dsk61mfqoiyue"
+const PROTOTYPE_LEVEL : String = "uid://ci15bm4spgnd2"
 var player : Player = null
 var current_level : BaseLevel = null
 
@@ -17,6 +18,7 @@ var current_level : BaseLevel = null
 
 func _ready() -> void:
 	_init_player()
+	load_level(PROTOTYPE_LEVEL)
 
 func _init_player() -> void:
 	var player_scene : PackedScene = ResourceLoader.load(PLAYER_UID) as PackedScene

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://encntmxkbfg5"]
 
 [ext_resource type="Script" uid="uid://cfkq0bsp4rqeu" path="res://content/core/main_game/main_game.gd" id="1_mk2px"]
-[ext_resource type="PackedScene" uid="uid://bhoa7lgx543th" path="res://content/level/platform_prototype.tscn" id="1_qsath"]
 
 [node name="MainGame" type="Node" unique_id=1846336549]
 script = ExtResource("1_mk2px")
@@ -13,10 +12,6 @@ process_mode = 1
 
 [node name="LevelRoot" type="Node2D" parent="World" unique_id=460022233]
 unique_name_in_owner = true
-
-[node name="PlatformPrototype" parent="World/LevelRoot" unique_id=1073608263 instance=ExtResource("1_qsath")]
-position = Vector2(309, 347)
-scale = Vector2(8.559999, 1)
 
 [node name="EntityRoot" type="Node2D" parent="World" unique_id=1593661464]
 unique_name_in_owner = true
