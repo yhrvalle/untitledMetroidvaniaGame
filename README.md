@@ -2,16 +2,18 @@
 
 ## Introduction 
 this is my first project in godot and i pretend to use 100% gdscript, i dont really like
-python and its syntax but ill bear with it. 
-<br> I already have some experience in game develpment and coding with c# and java.
+python-ish syntax but i bear with it
+<br> I already have some experience in game develpment with c# and backend development with java.
 
 ## Game Idea
-just a simple metroidvania game
-- cave story is the principal inspiration, probably ill make different weapons
+just a simple metroidvania game, im not really making it to be "good", i just want to learn more
+<br> didnt thought yet about a theme
+- cave story is the principal inspiration
+- want to be 8bit-ish game, but i want to fuck with lights and vfx 
 
 
 ## Objective
-- learn about the engine itself
+- learn about the engine itself 
 - follow this [game architecuture](https://www.gdquest.com/library/modular_game_architecture/)
 	-   consists in building a moduler game that follows this folder strucuture:
 ```bash
