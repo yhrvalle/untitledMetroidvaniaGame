@@ -7,14 +7,10 @@ const JUMP_FORCE : float = 500.0
 var horizontal_direction : float
 var jump_intention : bool
 
-
-
 func _physics_process(delta: float) -> void:
 	if (!is_on_floor()):
 		velocity.y += get_gravity().y * delta;
-		
 	horizontal_direction = Input.get_axis("move_left", "move_right")
-	
 	if (horizontal_direction):
 		velocity.x = horizontal_direction * SPEED
 	else:
