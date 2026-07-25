@@ -1,8 +1,8 @@
 class_name MainGame
 extends Node
 
-# cuidado com o uid, é pra puxar a SCENE não o script, script tbm tem uid 
-const PLAYER_UID : String = "uid://dsk61mfqoiyue" 
+#cuidado com o uid, é pra puxar a SCENE não o script, script tbm tem uid 
+const PLAYER_UID : String = "uid://dsk61mfqoiyue"
 const PROTOTYPE_LEVEL : String = "uid://ci15bm4spgnd2"
 var player : Player = null
 var current_level : BaseLevel = null
@@ -42,9 +42,9 @@ func _deferred_load_level(level_scene_uid : String) -> void:
 		current_level = null
 
 	await get_tree().process_frame
-	# need this casting after loading? load(uid, type_hint (?))
+	#need this casting after loading? load(uid, type_hint (?))
 	var level_resource : PackedScene = ResourceLoader.load(level_scene_uid,
-	 "PackedScene") as PackedScene
+	"PackedScene") as PackedScene
 	if (level_resource == null):
 		push_error("faiou carregar o level uid=" + level_scene_uid)
 		return
