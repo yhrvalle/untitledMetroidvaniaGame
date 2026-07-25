@@ -36,11 +36,6 @@ jobs:
         run: |
           gdlint ${{ steps.changed-files.outputs.all_changed_files }}
 
-      - name: run gdformat on pr
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          gdformat --check ${{ steps.changed-files.outputs.all_changed_files }}
-
       - name: Auto-format GDScript files
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
