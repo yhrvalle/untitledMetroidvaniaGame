@@ -1,7 +1,7 @@
 class_name MainGame
 extends Node
 
-#cuidado com o uid, é pra puxar a SCENE não o script, script tbm tem uid 
+#cuidado com o uid, é pra puxar a SCENE não o script, script tbm tem uid
 const PLAYER_UID : String = "uid://dsk61mfqoiyue"
 const PROTOTYPE_LEVEL : String = "uid://ci15bm4spgnd2"
 var player : Player = null
