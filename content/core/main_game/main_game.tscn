@@ -1,24 +1,10 @@
 [gd_scene format=3 uid="uid://encntmxkbfg5"]
 
-[ext_resource type="PackedScene" uid="uid://dsk61mfqoiyue" path="res://content/player/player.tscn" id="1_j2ccv"]
+[ext_resource type="Script" uid="uid://cfkq0bsp4rqeu" path="res://content/core/main_game/main_game.gd" id="1_mk2px"]
 [ext_resource type="PackedScene" uid="uid://bhoa7lgx543th" path="res://content/level/platform_prototype.tscn" id="1_qsath"]
 
-[sub_resource type="GDScript" id="GDScript_j2ccv"]
-script/source = "extends Node
-
-# game world root nodes
-@onready var level_root: Node2D = %LevelRoot
-@onready var entity_root: Node2D = %EntityRoot
-@onready var effect_root: Node2D = %EffectRoot
-
-# ui root nodes
-@onready var pause_root: Control = %PauseRoot
-@onready var transition_root: Control = %TransitionRoot
-@onready var debug_root: Control = %DebugRoot
-"
-
 [node name="MainGame" type="Node" unique_id=1846336549]
-script = SubResource("GDScript_j2ccv")
+script = ExtResource("1_mk2px")
 
 [node name="Systems" type="Node" parent="." unique_id=280473624]
 
@@ -34,9 +20,6 @@ scale = Vector2(8.559999, 1)
 
 [node name="EntityRoot" type="Node2D" parent="World" unique_id=1593661464]
 unique_name_in_owner = true
-
-[node name="Player" parent="World/EntityRoot" unique_id=1006357769 instance=ExtResource("1_j2ccv")]
-position = Vector2(114.999985, 86)
 
 [node name="EffectRoot" type="Node2D" parent="World" unique_id=709398349]
 unique_name_in_owner = true
