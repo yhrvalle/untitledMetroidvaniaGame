@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ci15bm4spgnd2"]
 
 [ext_resource type="Script" uid="uid://bgj3eiswj8sfd" path="res://prototype_level_01.gd" id="1_k1tx4"]
+[ext_resource type="PackedScene" uid="uid://dljvbudijx04e" path="res://content/level/environment/player_spawn/player_spawn.tscn" id="2_1vfhs"]
 [ext_resource type="PackedScene" uid="uid://30hqq261tdte" path="res://content/core/camera/player_camera.tscn" id="3_1vfhs"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8bdhr"]
@@ -10,10 +11,12 @@ script = ExtResource("1_k1tx4")
 
 [node name="Entities" type="Node2D" parent="." unique_id=419254613]
 
-[node name="PlayerSpawn" type="Marker2D" parent="Entities" unique_id=2119216289]
-position = Vector2(455, 83)
+[node name="PlayerSpawn" parent="Entities" unique_id=417540843 instance=ExtResource("2_1vfhs")]
+unique_name_in_owner = true
+position = Vector2(467, 120)
 
 [node name="PlayerCamera" parent="Entities" unique_id=160405427 instance=ExtResource("3_1vfhs")]
+unique_name_in_owner = true
 position = Vector2(322, 180)
 
 [node name="Environment" type="Node2D" parent="." unique_id=229961765]
