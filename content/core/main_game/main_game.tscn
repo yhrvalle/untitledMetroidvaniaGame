@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://encntmxkbfg5"]
 
 [ext_resource type="Script" uid="uid://cfkq0bsp4rqeu" path="res://content/core/main_game/main_game.gd" id="1_mk2px"]
+[ext_resource type="PackedScene" uid="uid://b0h4g3645lhnq" path="res://ui/debug/debug_hud.tscn" id="2_qsath"]
 
 [node name="MainGame" type="Node" unique_id=1846336549]
 script = ExtResource("1_mk2px")
@@ -27,8 +28,6 @@ layer = 10
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="PauseLayer" type="CanvasLayer" parent="HudRoot" unique_id=1215170086]
 process_mode = 2
@@ -38,8 +37,6 @@ layer = 20
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="TransitionLayer" type="CanvasLayer" parent="HudRoot" unique_id=248602622]
@@ -50,8 +47,6 @@ layer = 100
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="DebugLayer" type="CanvasLayer" parent="HudRoot" unique_id=496529219]
@@ -62,6 +57,9 @@ layer = 128
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 mouse_filter = 2
+
+[node name="DebugHud" parent="HudRoot/DebugLayer/DebugRoot" unique_id=320449044 instance=ExtResource("2_qsath")]
+layout_mode = 1
+offset_top = 360.0
+offset_bottom = 360.0

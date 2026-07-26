@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ci15bm4spgnd2"]
 
-[ext_resource type="Script" uid="uid://bgj3eiswj8sfd" path="res://prototype_level_01.gd" id="1_k1tx4"]
+[ext_resource type="Script" uid="uid://bgj3eiswj8sfd" path="res://content/level/prototypes/prototype_level_01.gd" id="1_k1tx4"]
 [ext_resource type="PackedScene" uid="uid://dljvbudijx04e" path="res://content/level/environment/player_spawn/player_spawn.tscn" id="2_1vfhs"]
 [ext_resource type="PackedScene" uid="uid://30hqq261tdte" path="res://content/core/camera/player_camera.tscn" id="3_1vfhs"]
 
