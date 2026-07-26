@@ -1,27 +1,35 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED : float = 300.0
-const DECELERATION : float = 140.0
-const JUMP_FORCE : float = 500.0
+
+#TODO improve player controller
+@export var speed : float = 300.0
+@export var deceleration : float = 140.0
+@export var jump_force : float = 500.0
 
 var horizontal_direction : float
+var desired_jump : bool = false
+
 
 
 func _physics_process(delta: float) -> void:
 	if (!is_on_floor()):
 		velocity.y += get_gravity().y * delta;
+		
+	if (desired_jump && is_on_floor()):
+		jump(delta)
+		desired_jump = false
 
 	horizontal_direction = Input.get_axis("move_left", "move_right")
 	if (horizontal_direction):
-		velocity.x = horizontal_direction * SPEED
+		velocity.x = horizontal_direction * speed * delta
 	else:
-		velocity.x = move_toward(velocity.x, 0, DECELERATION)
+		velocity.x = move_toward(velocity.x, 0, deceleration)
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("jump") && is_on_floor()):
-		jump()
+		desired_jump = true
 
-func jump() -> void:
-	velocity.y -= JUMP_FORCE
+func jump(delta : float) -> void:
+	velocity.y -= jump_force * delta
