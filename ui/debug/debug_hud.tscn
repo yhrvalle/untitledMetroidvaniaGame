@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://b0h4g3645lhnq"]
+
+[ext_resource type="Script" uid="uid://drgykwhjpwrwj" path="res://ui/debug/debug_hud.gd" id="1_kodiw"]
+
+[node name="DebugHud" type="Control" unique_id=320449044]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kodiw")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=981004745]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+offset_right = 46.0
+grow_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1567901161]
+layout_mode = 2
+
+[node name="FpsLabel" type="Label" parent="MarginContainer/VContainer" unique_id=1417329988]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1.2513996e-06, 0.92118365, 0.43031532, 1)
+theme_override_font_sizes/font_size = 8
+text = "FPS: 9000"
+vertical_alignment = 2
+
+[node name="VersionLabel" type="Label" parent="MarginContainer/VContainer" unique_id=1543197268]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Build: "
+vertical_alignment = 2
+
+[node name="CurrentlyBuild" type="Label" parent="MarginContainer/VContainer" unique_id=1829610465]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DEV BUILD"
+vertical_alignment = 2
