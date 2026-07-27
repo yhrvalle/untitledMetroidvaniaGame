@@ -1,15 +1,18 @@
 class_name Player
 extends CharacterBody2D
 
-#TODO improve player controller
+#TODO: variable jump height, jump buffer, coyote time, multiple jumps
+
 @export var speed : float = 100.0
 @export var jump_height : float = 42.0 # pixels
-@export var upward_movement_multi : float = 1.0
-@export var downward_movement_multi : float = 2.0
+@export var additional_jump : int = 1
 
 # cache gravity
 var gravity : float
-
+# gravity scale
+var upward_movement_multi : float = 1.0
+var downward_movement_multi : float = 2.0
+var default_movement_multi : float = 1.0
 # horizontal movement variables
 var horizontal_direction : float
 var desired_velocity : Vector2
@@ -18,7 +21,7 @@ var desired_velocity : Vector2
 var is_pressing_jump : bool
 var desired_jump : bool
 var is_jumping : bool
-
+var jump_phase : int
 # rigid body velocity variable for calculations
 var player_velocity : Vector2
 
@@ -35,6 +38,7 @@ func _physics_process(delta: float) -> void:
 	_run() # pensar se devo aplicar air movement
 	
 	if (is_on_floor() && velocity.y == 0):  # esta no chao e nao esta pulando
+		jump_phase = 0
 		is_jumping = false
 
 	if (desired_jump): # esta querendo pular entao pula
@@ -42,8 +46,7 @@ func _physics_process(delta: float) -> void:
 		_jump()
 
 	if (!is_on_floor()): # miss Unity rigidBody2D...
-		var gravity_multi : float = 1.0
-		gravity_multi = _calculate_gravity(gravity_multi)
+		var gravity_multi : float = _calculate_gravity()
 		player_velocity.y += gravity * gravity_multi * delta 
 	velocity = player_velocity
 	move_and_slide()
@@ -51,24 +54,34 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("jump")):
 		desired_jump = true
+		is_pressing_jump = true
+	if (event.is_action_released("jump")):
+		is_pressing_jump = false
 
-func _calculate_gravity(gravity_multi : float) -> float:
-	if (is_pressing_jump && player_velocity.y < 0.0):
-		gravity_multi = upward_movement_multi
-	elif (!is_pressing_jump && player_velocity.y > 0.0):
-		gravity_multi = downward_movement_multi
-	return gravity_multi
-
+#region Vertical Movement
+func _calculate_gravity() -> float:
+	if (is_pressing_jump && velocity.y < 0.0):
+		return upward_movement_multi
+	elif (!is_pressing_jump && velocity.y > 0.0):
+		return downward_movement_multi
+	else:
+		return default_movement_multi
 
 func _jump() -> void:
-	var jump_speed : float = sqrt(2.0 * gravity * jump_height * upward_movement_multi) # formula de vf = (2gh)^1/2
-	is_jumping = true
-	if (player_velocity.y < 0.0): # isso aqui é mais pra pulo duplo...
-		jump_speed = maxf(jump_speed + player_velocity.y, 0.0)
-	elif (player_velocity.y > 0.0):
-		jump_speed += abs(velocity.y)
-	print("jump speed: " + str(jump_speed))
-	player_velocity.y -= jump_speed	
+	# esse is on floor vira condicao de coyote time
+	if (is_on_floor() || (is_jumping && jump_phase < additional_jump)):
+		if (is_jumping):
+			jump_phase += 1 
+
+		var jump_speed : float = sqrt(2.0 * gravity * jump_height * upward_movement_multi) # formula de vf = (2gh)^1/2
+		is_jumping = true
+		if (player_velocity.y < 0.0): # isso aqui é mais pra pulo duplo...
+			jump_speed = maxf(jump_speed + player_velocity.y, 0.0)
+		elif (player_velocity.y > 0.0):
+			jump_speed += abs(velocity.y)
+		print("jump speed: " + str(jump_speed))
+		player_velocity.y -= jump_speed	
+#endregion
 
 #region Horizontal Movement
 func _horizontal_movement() -> void:
