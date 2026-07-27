@@ -1,8 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
-#TODO: variable jump height, jump buffer, coyote time, multiple jumps
-
+#TODO: jump buffer, coyote time
+# coyote time provavelmente vai usar o node de Timer !!!
 @export var speed : float = 100.0
 @export var jump_height : float = 42.0 # pixels
 @export var additional_jump : int = 1
@@ -60,9 +60,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 #region Vertical Movement
 func _calculate_gravity() -> float:
-	if (is_pressing_jump && velocity.y < 0.0):
+	if (is_pressing_jump && velocity.y < 0.0): 
 		return upward_movement_multi
-	elif (!is_pressing_jump && velocity.y > 0.0):
+	elif (!is_pressing_jump || velocity.y > 0.0): # parou de segurar o botao ou ESTÁ DESCENDO
+		# GODOT Y AXIS É INVERTIDO
 		return downward_movement_multi
 	else:
 		return default_movement_multi
