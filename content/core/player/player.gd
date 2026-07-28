@@ -1,29 +1,37 @@
 class_name Player
 extends CharacterBody2D
-
 #TODO: jump buffer, coyote time
 # coyote time provavelmente vai usar o node de Timer !!!
+
+
 @export var speed : float = 100.0
 @export var jump_height : float = 42.0 # pixels
-@export var additional_jump : int = 1
 
 # cache gravity
 var gravity : float
+
 # gravity scale
 var upward_movement_multi : float = 1.0
 var downward_movement_multi : float = 2.0
 var default_movement_multi : float = 1.0
+
 # horizontal movement variables
 var horizontal_direction : float
 var desired_velocity : Vector2
 
 # jump variables
+var was_on_floor : bool = false
 var is_pressing_jump : bool
 var desired_jump : bool
 var is_jumping : bool
 var jump_phase : int
+var additional_jump : int = 1
+var jump_cut_percentage : float = 0.5
+
 # rigid body velocity variable for calculations
 var player_velocity : Vector2
+
+@onready var coyote_timer: Timer = %CoyoteTimer
 
 func _ready() -> void:
 	# gravity = get_gravity() for some reason returns a Vector2.Zero ???????????????????
@@ -32,6 +40,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_horizontal_movement()
+	print(coyote_timer.time_left)
+
 
 func _physics_process(delta: float) -> void:
 	player_velocity = velocity
@@ -40,6 +50,9 @@ func _physics_process(delta: float) -> void:
 	if (is_on_floor() && velocity.y == 0):  # esta no chao e nao esta pulando
 		jump_phase = 0
 		is_jumping = false
+	elif (was_on_floor):
+		coyote_timer.start()# n esta no chao
+	was_on_floor = is_on_floor()
 
 	if (desired_jump): # esta querendo pular entao pula
 		desired_jump = false
@@ -57,6 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_pressing_jump = true
 	if (event.is_action_released("jump")):
 		is_pressing_jump = false
+		_cut_jump()
 
 #region Vertical Movement
 func _calculate_gravity() -> float:
@@ -70,18 +84,22 @@ func _calculate_gravity() -> float:
 
 func _jump() -> void:
 	# esse is on floor vira condicao de coyote time
-	if (is_on_floor() || (is_jumping && jump_phase < additional_jump)):
+	if (is_on_floor() || !coyote_timer.is_stopped() || (jump_phase < additional_jump && is_jumping)):
+		coyote_timer.stop()
 		if (is_jumping):
 			jump_phase += 1 
-
 		var jump_speed : float = sqrt(2.0 * gravity * jump_height * upward_movement_multi) # formula de vf = (2gh)^1/2
 		is_jumping = true
 		if (player_velocity.y < 0.0): # isso aqui é mais pra pulo duplo...
 			jump_speed = maxf(jump_speed + player_velocity.y, 0.0)
 		elif (player_velocity.y > 0.0):
 			jump_speed += abs(velocity.y)
-		print("jump speed: " + str(jump_speed))
 		player_velocity.y -= jump_speed	
+
+func _cut_jump() -> void:
+	if (player_velocity.y < 0.0):
+		velocity.y *= jump_cut_percentage
+		player_velocity.y = velocity.y 
 #endregion
 
 #region Horizontal Movement
