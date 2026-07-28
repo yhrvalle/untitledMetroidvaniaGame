@@ -1,36 +1,35 @@
 class_name Player
 extends CharacterBody2D
-#TODO: jump buffer, coyote time
-# coyote time provavelmente vai usar o node de Timer !!!
+#TODO: jump buffer
 
-
-@export var speed : float = 100.0
+@export_category("Movement Parameters")
+@export var horizontal_speed : float = 100.0
 @export var jump_height : float = 42.0 # pixels
+@export var additional_jump : int = 1
+@export var jump_cut_percentage : float = 0.5
+
+@export_category("Gravity Multiplier Parameters")
+@export var upward_movement_multi : float = 1.0
+@export var downward_movement_multi : float = 2.0
+@export var default_movement_multi : float = 1.0
+
+# horizontal calculations
+var horizontal_direction : float
+var desired_velocity : Vector2
+
+# jump variables for calculation
+var was_on_floor : bool = false
+var is_pressing_jump : bool
+var is_jumping : bool
+var jump_phase : int
+
+# rigid body velocity cache for calculations
+var player_velocity : Vector2
 
 # cache gravity
 var gravity : float
 
-# gravity scale
-var upward_movement_multi : float = 1.0
-var downward_movement_multi : float = 2.0
-var default_movement_multi : float = 1.0
-
-# horizontal movement variables
-var horizontal_direction : float
-var desired_velocity : Vector2
-
-# jump variables
-var was_on_floor : bool = false
-var is_pressing_jump : bool
-var desired_jump : bool
-var is_jumping : bool
-var jump_phase : int
-var additional_jump : int = 1
-var jump_cut_percentage : float = 0.5
-
-# rigid body velocity variable for calculations
-var player_velocity : Vector2
-
+@onready var jump_buffer_timer: Timer = %JumpBufferTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
 
 func _ready() -> void:
@@ -40,22 +39,18 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_horizontal_movement()
-	print(coyote_timer.time_left)
-
 
 func _physics_process(delta: float) -> void:
 	player_velocity = velocity
-	_run() # pensar se devo aplicar air movement
-	
+	_run()
 	if (is_on_floor() && velocity.y == 0):  # esta no chao e nao esta pulando
 		jump_phase = 0
 		is_jumping = false
 	elif (was_on_floor):
-		coyote_timer.start()# n esta no chao
+		coyote_timer.start() # n esta no chao
 	was_on_floor = is_on_floor()
 
-	if (desired_jump): # esta querendo pular entao pula
-		desired_jump = false
+	if (!jump_buffer_timer.is_stopped()): # esta querendo pular entao pula
 		_jump()
 
 	if (!is_on_floor()): # miss Unity rigidBody2D...
@@ -66,24 +61,23 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("jump")):
-		desired_jump = true
+		jump_buffer_timer.start()
 		is_pressing_jump = true
 	if (event.is_action_released("jump")):
 		is_pressing_jump = false
 		_cut_jump()
 
-#region Vertical Movement
+#region Gravity Calculations
 func _calculate_gravity() -> float:
 	if (is_pressing_jump && velocity.y < 0.0): 
 		return upward_movement_multi
-	elif (!is_pressing_jump || velocity.y > 0.0): # parou de segurar o botao ou ESTÁ DESCENDO
-		# GODOT Y AXIS É INVERTIDO
+	elif (!is_pressing_jump || velocity.y > 0.0): 
 		return downward_movement_multi
 	else:
 		return default_movement_multi
-
+#endregion
+#region Vertical Movement
 func _jump() -> void:
-	# esse is on floor vira condicao de coyote time
 	if (is_on_floor() || !coyote_timer.is_stopped() || (jump_phase < additional_jump && is_jumping)):
 		coyote_timer.stop()
 		if (is_jumping):
@@ -97,15 +91,13 @@ func _jump() -> void:
 		player_velocity.y -= jump_speed	
 
 func _cut_jump() -> void:
-	if (player_velocity.y < 0.0):
+	if (velocity.y < 0.0):
 		velocity.y *= jump_cut_percentage
-		player_velocity.y = velocity.y 
 #endregion
-
 #region Horizontal Movement
 func _horizontal_movement() -> void:
 	horizontal_direction = Input.get_axis("move_left", "move_right")
-	desired_velocity.x = horizontal_direction * speed
+	desired_velocity.x = horizontal_direction * horizontal_speed
 
 func _run() -> void:
 	player_velocity.x = desired_velocity.x
