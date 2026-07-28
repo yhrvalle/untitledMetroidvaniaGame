@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 @export_category("Movement Parameters")
 @export var horizontal_speed : float = 100.0
-@export var jump_height : float = 42.0 # pixels
+@export var jump_height : float = 42.0
 @export var additional_jump : int = 1
 @export var jump_cut_percentage : float = 0.5
 
@@ -47,10 +47,10 @@ func _physics_process(delta: float) -> void:
 		jump_phase = 0
 		is_jumping = false
 	elif (was_on_floor):
-		coyote_timer.start() # n esta no chao
+		coyote_timer.start()
 	was_on_floor = is_on_floor()
 
-	if (!jump_buffer_timer.is_stopped()): # esta querendo pular entao pula
+	if (!jump_buffer_timer.is_stopped()): 
 		_jump()
 
 	if (!is_on_floor()): # miss Unity rigidBody2D...
@@ -69,9 +69,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 #region Gravity Calculations
 func _calculate_gravity() -> float:
-	if (is_pressing_jump && velocity.y < 0.0): 
+	if (is_pressing_jump && player_velocity.y < 0.0): 
 		return upward_movement_multi
-	elif (!is_pressing_jump || velocity.y > 0.0): 
+	elif (!is_pressing_jump || player_velocity.y > 0.0): 
 		return downward_movement_multi
 	else:
 		return default_movement_multi
