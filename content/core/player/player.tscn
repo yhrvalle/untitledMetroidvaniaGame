@@ -19,10 +19,10 @@ shape = SubResource("RectangleShape2D_sy5r3")
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=118123174]
 unique_name_in_owner = true
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="." unique_id=889216723]
 unique_name_in_owner = true
-wait_time = 0.2
+wait_time = 0.05
 one_shot = true

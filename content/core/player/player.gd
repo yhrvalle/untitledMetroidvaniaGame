@@ -1,6 +1,6 @@
 class_name Player
 extends CharacterBody2D
-#TODO: jump buffer
+## TESTING: Keep iterating this script to achieve a better controller
 
 @export_category("Movement Parameters")
 @export var horizontal_speed : float = 100.0
@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	player_velocity = velocity
 	_run()
-	if (is_on_floor() && velocity.y == 0):  # esta no chao e nao esta pulando
+	if (is_on_floor() && velocity.y == 0): 
 		jump_phase = 0
 		is_jumping = false
 	elif (was_on_floor):
@@ -84,7 +84,7 @@ func _jump() -> void:
 			jump_phase += 1 
 		var jump_speed : float = sqrt(2.0 * gravity * jump_height * upward_movement_multi) # formula de vf = (2gh)^1/2
 		is_jumping = true
-		if (player_velocity.y < 0.0): # isso aqui é mais pra pulo duplo...
+		if (player_velocity.y < 0.0): 
 			jump_speed = maxf(jump_speed + player_velocity.y, 0.0)
 		elif (player_velocity.y > 0.0):
 			jump_speed += abs(velocity.y)
