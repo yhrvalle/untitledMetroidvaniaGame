@@ -17,16 +17,16 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_t2207")
 
-[node name="prototype_level01" type="Node2D" unique_id=1862126187]
+[node name="PrototypeLevel1" type="Node2D" unique_id=1862126187]
 script = ExtResource("1_k1tx4")
 
-[node name="Entities" type="Node2D" parent="." unique_id=419254613]
+[node name="LevelObjects" type="Node2D" parent="." unique_id=419254613]
 
-[node name="PlayerSpawn" parent="Entities" unique_id=417540843 instance=ExtResource("2_1vfhs")]
+[node name="PlayerSpawn" parent="LevelObjects" unique_id=417540843 instance=ExtResource("2_1vfhs")]
 unique_name_in_owner = true
 position = Vector2(28, 332)
 
-[node name="PlayerCamera" parent="Entities" unique_id=160405427 instance=ExtResource("3_1vfhs")]
+[node name="PlayerCamera" parent="LevelObjects" unique_id=160405427 instance=ExtResource("3_1vfhs")]
 unique_name_in_owner = true
 position = Vector2(85, 300)
 
