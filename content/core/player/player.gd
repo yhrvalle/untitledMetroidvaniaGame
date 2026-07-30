@@ -37,7 +37,7 @@ func _ready() -> void:
 	# and this method returns a float ????????????????????
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_horizontal_movement()
 
 func _physics_process(delta: float) -> void:
